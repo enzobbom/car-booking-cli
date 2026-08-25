@@ -1,11 +1,9 @@
 package com.enzo.user;
 
-import java.util.UUID;
-
 public class UserDao {
-    private static final User[] USERS;
+    private static final User[] users;
     static {
-        USERS = new User[]{
+        users = new User[]{
                 new User("James"),
                 new User("Jamila"),
                 new User("George"),
@@ -19,6 +17,6 @@ public class UserDao {
     }
 
     public User[] getUsers() {
-        return USERS;
+        return users;
     }
 }

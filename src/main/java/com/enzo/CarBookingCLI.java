@@ -7,7 +7,6 @@ import com.enzo.user.User;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.UUID;
@@ -15,10 +14,8 @@ import java.util.UUID;
 public class CarBookingCLI {
     private static final CarBookingService carBookingService = new CarBookingService();
     private static final Scanner scanner = new Scanner(System.in);
-    private static final DateTimeFormatter dateFormatter =
-            new DateTimeFormatterBuilder()
-            .appendPattern("dd-MM-yyyy")
-            .toFormatter();
+    private static final DateTimeFormatter DATE_FORMATTER =
+            DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     private static final String INVALID_INPUT_VALUE_MSG = "Invalid value";
 
@@ -32,7 +29,7 @@ public class CarBookingCLI {
                 switch (choice) {
                     case 1 -> bookCar();
                     case 2 -> deleteBooking();
-                    case 3 -> viewAllUserBookedCar();
+                    case 3 -> viewAllUserBookedCars();
                     case 4 -> viewAllBookings();
                     case 5 -> viewAvailableCars();
                     case 6 -> viewAvailableElectricCars();
@@ -82,7 +79,7 @@ public class CarBookingCLI {
         String dateStr = getScannerNextLine();
 
         try {
-            return LocalDate.parse(dateStr, dateFormatter);
+            return LocalDate.parse(dateStr, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Invalid Date");
         }
@@ -133,7 +130,7 @@ public class CarBookingCLI {
         System.out.println();
     }
 
-    private static void viewAllUserBookedCar() {
+    private static void viewAllUserBookedCars() {
         UUID userId = promptId("Please insert an User ID:", "Invalid User ID");
 
         Car[] userBookedCars = carBookingService.getUserBookedCars(userId);
@@ -167,14 +164,14 @@ public class CarBookingCLI {
 
     private static void displayResult(Object[] entities) {
         for (Object o : entities) {
-            System.out.println(o.toString());
+            System.out.println(o);
         }
 
         System.out.println();
     }
 
     private static void displayResult(Object entity) {
-        System.out.println(entity.toString());
+        System.out.println(entity);
         System.out.println();
     }
 }

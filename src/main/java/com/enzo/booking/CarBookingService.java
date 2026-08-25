@@ -82,8 +82,11 @@ public class CarBookingService {
         if (userBookingsCount == 0) { return new Car[0]; }
 
         Car[] userCars = new Car[userBookingsCount];
-        for (int bIdx = 0; bIdx < userBookingsCount; bIdx++) {
-            userCars[bIdx] = bookings[bIdx].getCar();
+        int userCarsCounter = 0;
+        for (CarBooking booking : bookings) {
+            if (booking.getUser() == desiredUser) {
+                userCars[userCarsCounter++] = booking.getCar();
+            }
         }
 
         return userCars;

@@ -3,12 +3,11 @@ package com.enzo.car;
 import com.enzo.car.enums.Brand;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 public class CarDao {
-    private static final Car[] CARS;
+    private static final Car[] cars;
     static {
-        CARS = new Car[]{
+        cars = new Car[]{
                 new Car("211-D-45892", new BigDecimal("44.53"), Brand.TOYOTA, false),
                 new Car("182-C-1245", new BigDecimal("50.97"), Brand.TOYOTA, false),
                 new Car("141-G-9932", new BigDecimal("74.29"), Brand.AUDI, false),
@@ -22,6 +21,6 @@ public class CarDao {
     }
 
     public Car[] getCars() {
-        return CARS;
+        return cars;
     }
 }
