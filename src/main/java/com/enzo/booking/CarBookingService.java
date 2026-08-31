@@ -100,7 +100,7 @@ public class CarBookingService {
         Car[] availableCars = getAvailableCars();
         if (availableCars.length == 0) { return new Car[0]; }
 
-        return carService.getElectricCars(availableCars);
+        return carService.filterElectricCars(availableCars);
     }
 
     public Car[] getAvailableCars(LocalDate startDate, LocalDate endDate) {

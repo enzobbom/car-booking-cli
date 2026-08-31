@@ -14,10 +14,8 @@ import java.util.UUID;
 public class CarBookingCLI {
     private static final CarBookingService carBookingService = new CarBookingService();
     private static final Scanner scanner = new Scanner(System.in);
-    private static final DateTimeFormatter DATE_FORMATTER =
+    private static final DateTimeFormatter dateFormatter =
             DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
-    private static final String INVALID_INPUT_VALUE_MSG = "Invalid value";
 
     public static void main(String[] args) {
         boolean running = true;
@@ -60,15 +58,18 @@ public class CarBookingCLI {
         System.out.println("8 - Exit");
         System.out.println();
 
-        return getScannerNextInt();
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        return choice;
     }
 
     private static UUID promptId(String promptMsg, String errorMsg) {
         System.out.println(promptMsg);
-        String carIdStr = getScannerNextLine();
+        String idStr = scanner.nextLine();
 
         try {
-            return UUID.fromString(carIdStr);
+            return UUID.fromString(idStr);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(errorMsg);
         }
@@ -76,30 +77,12 @@ public class CarBookingCLI {
 
     private static LocalDate promptDate(String promptMsg) {
         System.out.println(promptMsg);
-        String dateStr = getScannerNextLine();
+        String dateStr = scanner.nextLine();
 
         try {
-            return LocalDate.parse(dateStr, DATE_FORMATTER);
+            return LocalDate.parse(dateStr, dateFormatter);
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Invalid Date");
-        }
-    }
-
-    private static int getScannerNextInt() {
-        try {
-            int value = scanner.nextInt();
-            scanner.nextLine(); // consume the leftover newline
-            return value;
-        } catch (Exception e) {
-            throw new IllegalArgumentException(INVALID_INPUT_VALUE_MSG);
-        }
-    }
-
-    private static String getScannerNextLine() {
-        try {
-            return scanner.nextLine();
-        } catch (Exception e) {
-            throw new IllegalArgumentException(INVALID_INPUT_VALUE_MSG);
         }
     }
 

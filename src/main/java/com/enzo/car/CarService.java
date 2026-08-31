@@ -34,10 +34,10 @@ public class CarService {
     }
 
     public Car[] getElectricCars() {
-        return getElectricCars(getCars());
+        return filterElectricCars(getCars());
     }
 
-    public Car[] getElectricCars(Car[] cars) {
+    public Car[] filterElectricCars(Car[] cars) {
         if (cars.length == 0) { return new Car[0]; }
 
         int electricCarsCount = 0;
